@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+}
+
+.banner {
+    padding: 1rem 0;
+    background-color: #000;
+    color: #fefefe;
+    text-align: center;
+    margin: 0 0 3rem;
+}
+
+.app-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.col-2-span {
+    grid-column: 1 / span 2;
+}
+
+.dash-dropdown {
+    justify-self: center;
+    width: 20rem;
+    margin-bottom: 1rem;
+}
+
+.justify-self-center {
+    justify-self: center;
+}
+
+@media screen and (max-width: 700px) {
+    .dash-dropdown {
+        grid-column: 1 / span 2;
+    }
+}
+
+.input {
+    justify-self: center;
+}
+
+.gtitle {
+    font-size: 2.4rem;
+}
