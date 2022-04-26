@@ -1,12 +1,12 @@
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc
+from dash import html
 from dash.dependencies import Input, Output
 
 import plotly.express as px
 import pandas as pd
 
-df = pd.read_csv('swe_adhd_prescription_combined.csv')
+df = pd.read_csv('./swe_adhdmed_geo_pop.csv')
 
 year_choices = df.year.unique()
 
@@ -47,7 +47,7 @@ app.layout = html.Div(
                 id='adhd-prescriptions-map',
                 figure={},
                 className="col-2-span justify-self-center",
-                style={'width': '100vw', 'height': '100vh'}
+                style={'width': '100vw', 'height': '80vh'}
         ),
     ],
     className="app-container"
@@ -80,33 +80,68 @@ def update_map(year, g_opt, gender_coln):
     
     title_str = (
         f'Andel {gender_label.lower()} som hämtade ut '
-        f'ADHD-medicin {year}'
+        f'ADHD-medicin år {year}'
     )
 
     df_yearview = df[df.year == year]
-    df_yearview = df_yearview[df_yearview.notna()]
+    df_yearview = df_yearview.dropna()
 
-    fig = px.density_mapbox(
+    fig = px.scatter_mapbox(
         df_yearview,
         lat='latitude',
         lon='longitude',
-        z=df_yearview[gender_coln],
-        range_color=[0, 16],
+        size='pop_2020',
+        color=gender_coln,
+        range_color=(0, 17),
         hover_name='municipality',
         hover_data={
             'longitude': False,
-            'latitude': False, 
+            'latitude': False,
         },
-        labels={gender_coln: 'Andel (%)'},
-        radius=8,
+        labels={gender_coln: f'Andel (%)'},
         center=dict(lat=61, lon=14),
         zoom=4,
-        mapbox_style="stamen-terrain"
+        mapbox_style="carto-darkmatter",
+        color_continuous_scale='oryel'
     )
 
     fig.update_traces(
-        hovertemplate='<b>%{hovertext} </b><br>Andel(%): %{z}%'
+        hovertemplate=(
+            '<b>%{hovertext} </b><br>Andel '
+            f'{gender_label.lower()}'
+            ' som hämtade ut ADHD-medicin: %{marker.color}%'
+        )
     )
+
+    fig.update_layout(
+        margin=dict(l=0, r=0, t=0, b=0),
+        paper_bgcolor='rgba(0,0,0,255)',
+        coloraxis=dict(
+            colorbar=dict(
+                outlinewidth=0,
+                lenmode='fraction',
+                len=0.5,
+                thickness=15,
+                orientation='h',
+                tickfont=dict(
+                    color='#FCC',
+                    family='Arial',
+                    size=12
+                ),
+                ticksuffix="%",
+                title=dict(
+                    text="Andel",
+                    font=dict(
+                        color="#FCC",
+                        family="Arial",
+                        size=12
+                    )
+                )
+            )
+        )
+    )
+
+    fig['layout']['uirevision'] = True
 
     return fig,
 

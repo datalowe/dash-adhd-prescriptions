@@ -1,13 +1,23 @@
+/* define colors */
+:root {
+    --primary-color: rgba(9, 61, 160, 1);
+    --selector-bg-color: #111;
+    --main-background-color: #831;
+    --banner-background-color: #511;
+}
+
 body {
     margin: 0;
+    background-color: var(--main-background-color);
 }
 
 .banner {
     padding: 1rem 0;
-    background-color: #000;
+    background-color: var(--banner-background-color);
     color: #fefefe;
     text-align: center;
     margin: 0 0 3rem;
+    font-family: Arial, Helvetica, sans-serif
 }
 
 .app-container {
@@ -42,3 +52,31 @@ body {
 .gtitle {
     font-size: 2.4rem;
 }
+
+.Select-value {
+    background-color: var(--selector-bg-color);
+}
+
+.is-open > .Select-control {
+    background-color: var(--selector-bg-color);
+}
+
+.Select-menu-outer {
+    background-color: var(--selector-bg-color);
+    color: #fefefe;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.has-value.Select--single > .Select-control .Select-value > .Select-value-label,
+.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value > .Select-value-label {
+    color: #fefefe;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#adhd-prescriptions-map {
+    width: 100vw;
+}
+
+/* .Select-value-label {
+    color: #fefefe;
+} */
