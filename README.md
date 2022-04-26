@@ -1,2 +1,4 @@
 # ADHD medication in Sweden
+<img width="800px" src="./example_images/mainmap_ex.png" alt="Example of map view in app of ADHD prescription rates">
+
 This is a [Dash](https://dash.plotly.com/) project where data on ADHD medication for 0-17-year-olds in Sweden are presented using a map and an interactive data table (the latter is yet to be implemented). The data are from [Socialstyrelsen](https://www.socialstyrelsen.se/) and describe ADHD medication rates from 2016 and 2020. Latitudes/longitudes of Swedish municipalities are based on data from [GeoNames](https://www.geonames.org/). Municipality population data are from [Sveriges dataportal (DIGG - Myndigheten för digital förvaltning)](https://www.dataportal.se/sv/datasets/653_26835/kommunkod-kommunnamn-folkmangd-20201231-skr-s-kommungrupp-lan-och-region).
