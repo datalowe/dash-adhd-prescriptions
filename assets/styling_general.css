@@ -1,0 +1,445 @@
+:root {
+    --primary-color: rgba(243, 173, 106, 1);
+    --primary-gradient-color: rgba(255, 90, 90, 1);
+    --secondary-color: rgba(137, 204, 207, 1);
+    --primary-color-lighter: rgba(12, 87, 229, 1);
+    /* tertiary color was rarely if ever used in app, so it's not important */
+    --tertiary-color: rgba(150, 192, 58, 1);
+    --highlight-primary-color: hsl(0, 100%, 30%);
+    --highlight-secondary-color: rgba(226, 0, 122, 1);
+    --inactive-header-link-color: rgba(0, 0, 0, 1);
+    --intro-text-color: rgba(250, 250, 250, 1);
+    --color-strong-black: #000;
+    --body-background-color: #000;
+    --button-text-color: var(--highlight-primary-color);
+    --inactive-slider-color: darkgrey;
+    --warning-message-text-color: #fff;
+
+    --header-height: 4rem;
+    --header-toggle-menu-height: 3rem;
+
+    --header-height-small-screen: 10vh;
+    --header-height-small-short-screen: 15vh;
+    --mobile-nav-height: 90vh;
+}
+  
+
+/* general */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--body-background-color);
+}
+
+a {
+    color: var(--highlight-primary-color);
+}
+
+a:hover {
+    color: var(--highlight-secondary-color);
+}
+
+a:visited {
+    color: var(--highlight-secondary-color);
+}
+
+/* headings */
+h1 {
+    color: var(--primary-color);
+    justify-self: center;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+h2 {
+    justify-self: center;
+    color: var(--highlight-primary-color);
+}
+
+@media screen and (max-width: 700px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+}
+
+.section-heading {
+    width: 50vw;
+    background-color: var(--primary-color);
+    color: var(--highlight-primary-color);
+    text-align: center;
+    border-style: none;
+    border-width: 0;
+    border-radius: 1rem;
+    padding: 0.4rem 0;
+}
+
+@media screen and (max-width: 700px) {
+    .section-heading {
+        width: 80vw;
+        font-size: 2rem;
+    }
+}
+
+/* Body text */
+p {
+    max-width: 60rem;
+    margin: 0.4rem 1rem;
+    /* align-self: center; */
+    justify-self: center;
+}
+
+/* header */
+.top-header {
+    height: var(--header-height);
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 9fr;
+    /* background-image: linear-gradient(to right, red , yellow); */
+    background-image: linear-gradient(to right, var(--primary-color) , var(--primary-gradient-color));
+    align-items: center;
+}
+
+/* class to be added to header when mobile navigation is displayed,
+meaning header should be put in fixed position */
+.top-header-fixed {
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+}
+
+/* class to be added to page-content when mobile navigation is displayed,
+to make extra room at top for the header which is now out of normal
+content flow */
+.extra-margin-for-header {
+    margin-top: var(--header-height-small-screen);
+}
+
+@media screen and (max-width: 700px) {
+    .top-header {
+        grid-template-columns: 2fr 8fr;
+        height: var(--header-height-small-screen);
+    }
+
+    @media screen and (max-height: 450px) {
+        .top-header {
+            height: var(--header-height-small-short-screen);
+        }
+
+        .extra-margin-for-header {
+            margin-top: var(--header-height-small-short-screen);
+        }
+    }
+}
+
+.top-nav {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+}
+
+@media screen and (max-width: 700px) {
+    .top-nav {
+        font-size: 1.2rem;
+        flex-flow: row wrap;
+        justify-content: center;
+        row-gap: 1rem;
+    }
+}
+
+.top-nav > a {
+    margin: 0 2rem;
+    color: var(--inactive-header-link-color);
+    text-decoration: none;
+}
+
+.top-nav > a:hover {
+    color: var(--highlight-primary-color);
+}
+
+/* mobile 'top'/main navigation */
+.mobile-nav {
+    display: none;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+@media screen and (max-width: 700px) {
+    .desktop-nav {
+        display: none;
+    }
+
+    .mobile-nav {
+        justify-content: flex-end;
+        top: var(--header-height-small-screen);
+        height: var(--mobile-nav-height);
+        width: 50vw;
+        left: 50vw;
+        opacity: 0;
+        z-index: 3;
+    }
+
+    .mobile-nav > ul > li:first-child {
+        margin-left: 0;
+        display: none;
+    }
+
+    .mobile-nav > ul > li:not(first-child) {
+        margin-left: 0;
+        display: none;
+    }
+
+    .mobile-nav-shadow {
+        position: fixed;
+        left: 0;
+        top: var(--header-height-small-screen);
+        height: var(--mobile-nav-height);
+        width: 100vw;
+        background-color: var(--color-strong-black);
+        opacity: 0;
+        display: none;
+        z-index: 2;
+    }
+
+    .mobile-nav.active {
+        position: fixed;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        padding: 2rem 1rem 0 0;
+        opacity: 1;
+        background-image: linear-gradient(to bottom, var(--primary-color), var(--primary-gradient-color));
+        /* background-image: linear-gradient(to bottom, red , yellow); */
+    }
+
+    .mobile-nav.active > ul {
+        display: flex;
+        flex-flow: column nowrap;
+        text-align: right;
+    }
+
+    .mobile-nav.active > ul > li {
+        margin-bottom: 2rem;
+    }
+
+    .mobile-nav.active > ul > li > a {
+        color: var(--inactive-header-link-color);
+        font-size: 2rem;
+        text-decoration: none;
+    }
+
+    .mobile-nav.active > ul > li:not(first-child) {
+        margin-left: 0;
+        display: block;
+    }
+
+    .mobile-nav-shadow.active {
+        opacity: 0.88;
+        display: block;
+    }
+
+    .menu-toggle {
+        display: block;
+        justify-self: end;
+        text-decoration: none;
+        border-bottom: none;
+        margin-right: 1rem;
+
+    }
+
+    .menu-toggle > img {
+        height: var(--header-toggle-menu-height);
+        width: auto;
+        border-bottom: none;
+        vertical-align: bottom;
+    }
+
+    a.menu-toggle:visited {
+        border-bottom: none;
+    }
+
+    @media screen and (max-height: 450px) {
+        .mobile-nav {
+            top: var(--header-height-small-short-screen);
+        }
+
+        .mobile-nav-shadow {
+            top: var(--header-height-small-short-screen);
+        }
+    }
+}
+
+/* top-level containers */
+.barplot-container {
+    display: grid;
+}
+
+.startpage-container {
+    display: grid;
+}
+
+/* 'flash messages' */
+.warning-message {
+    background-color: var(--highlight-secondary-color);
+    color: var(--warning-message-text-color);
+    border-radius: 0.4rem;
+    padding: 0.4rem 1rem;
+    text-align: center;
+}
+
+.warning-message-hidden {
+    display: none;
+}
+
+/* Specific plots */
+.plotly-map {
+    height: 600px;
+    width: 100vw;
+}
+
+@media screen and (max-width: 700px) {
+    .plotly-map {
+        height: 400px;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    .plotly-map {
+        height: 400px;
+    }
+}
+
+/* Specific start page rules */
+.startpage-title-wrapper {
+    width: 60vw;
+    /* background-color: var(--primary-color); */
+    text-align: center;
+    border-style: none;
+    border-width: 0;
+    border-radius: 1rem;
+    padding: 0;
+    margin: 2rem 0 0rem;
+    justify-self: center;
+    z-index: 1;
+    opacity: 1;
+}
+
+@media screen and (max-width: 700px) {
+    .startpage-title-wrapper {
+        /* justify-self: right; */
+        /* margin-right: 5vw; */
+        opacity: 0.95;
+        width: 80vw;
+    }
+}
+
+
+.startpage-title {
+    text-align: center;
+    margin: 1rem;
+    color: var(--intro-text-color);
+}
+
+.startpage-intro-wrapper {
+    width: 70vw;
+    /* background-color: var(--primary-color); */
+    border-style: none;
+    border-width: 0;
+    border-radius: 1rem;
+    padding: 0;
+    margin: 2rem 0 0;
+    justify-self: center;
+    z-index: 1;
+    opacity: 0.90;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 700px) {
+    .startpage-intro-wrapper {
+        opacity: 0.95;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    .startpage-intro-wrapper {
+        margin-top: 1rem;
+    }
+}
+
+.startpage-intro {
+    color: var(--intro-text-color);
+    text-align: center;
+    width: 100%;
+    opacity: 1;
+    font-size: 1.6rem;
+}
+
+@media screen and (max-width: 700px) {
+    .startpage-intro {
+        margin-bottom: 1rem;
+    }
+}
+
+.startpage-splash-image {
+    height: 100vh;
+    width: 100vw;
+    justify-self: center;
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    margin: 0;
+    padding: 0;
+}
+
+@media screen and (min-width: 1280px),
+    screen and (min-height: 850px)  {
+    .startpage-splash-image {
+        background-size: cover;
+        background-position: center center;
+    }
+}
+
+.startpage-splash-image-narrow {
+    display: none;
+    background-size: cover;
+}
+
+@media screen and (max-width: 700px) {
+    .startpage-splash-image {
+        display: none;
+    }
+
+    .startpage-splash-image-narrow {
+        height: 100vh;
+        width: 100vw;
+        justify-self: center;
+        position: absolute;
+        top: var(--header-height-small-screen);
+        left: 0;
+        margin: 0;
+        padding: 0;
+        display: block;
+    }
+
+    @media screen and (max-height: 450px) {
+        .startpage-splash-image-narrow {
+            top: var(--header-height-small-short-screen);
+        }
+    }
+}
